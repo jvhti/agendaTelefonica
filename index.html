@@ -181,7 +181,7 @@ function logar(form){
       if(x.error != null || x.return_code != 1){
         window.location.replace("main.html");
       }else{
-        var alert = "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" onclick=\"$('#cadastro').modal('hide');\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Senha ou Usuario incorretos</strong> Você foi cadastrado com sucesso em nosso sistema. <a href=\"#\" onclick=\"$('#cadastro').modal('hide'); $('#login').modal('show');\">Click aqui</a> para fazer login.</div>";
+        var alert = "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" onclick=\"$('#cadastro').modal('hide');\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Senha ou Usuario incorretos</strong> Você foi cadastrado com sucesso em nosso sistema. <a href=\"#\" onclick=\"$('login').modal('hide'); $('#login').modal('show');\">Click aqui</a> para fazer login.</div>";
         $("#alertArea_login").html(alert);
       }
     } 
