@@ -23,7 +23,7 @@ function executarValidacao(e){
 	}
 }
 
-function validateField(campo, formSended = false){
+function validateField(campo, formSended){
 	var type = $(campo).attr("validate");
 	switch(type){
 		case "emailField":
@@ -46,7 +46,7 @@ function validateField(campo, formSended = false){
 	return true;
 }
 
-function validateEmail(email, field, formSended = false){
+function validateEmail(email, field, formSended){
 	var res = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email);	
 
 	if(!res && formSended){
@@ -63,7 +63,7 @@ function validateEmail(email, field, formSended = false){
 	return res;
 }
 
-function validateCheckbox(check, field, formSended = false){
+function validateCheckbox(check, field, formSended){
 	var res =  ($(field).attr('validateRequired') == "true" && check);
 	if(!res && formSended){
 		$(field).attr("title", "Você precisa marcar");
@@ -78,7 +78,7 @@ function validateCheckbox(check, field, formSended = false){
 	return res;
 }
 
-function validateText(text, field, formSended = false){
+function validateText(text, field, formSended){
 
 	if($(field).attr("validadeMinSize") == null || $(field).attr("validadeMinSize") === typeof undefined || !$(field).attr("validadeMinSize"))
 		$(field).attr("validadeMinSize", ""); 

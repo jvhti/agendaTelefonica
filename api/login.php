@@ -1,7 +1,8 @@
  <?php
 	/**	Codigos de retorno
-	 *  0 - Senha ou endereço invalido
-	 *	1
+	 *	0 - Logado com exito
+	 *  1 - Senha ou endereço invalido
+	 *	2 - Já estava logado
 	 */
 	header('Content-Type: application/json');
 	include "cfg/conexao.php";
@@ -22,13 +23,13 @@
 	$linha = mysql_fetch_array($resultado);
 	
 	if (mysql_query($sql)){
-		$ret['return_code'] = 1;
+		$ret['return_code'] = 0;
 		
 		$_SESSION['email'] = $email;
 	}else {
 		$ret["error"] = mysql_error();
 		$ret["error_cod"] = mysql_errno();
-		$ret['return_code'] = 0;
+		$ret['return_code'] = 1;
 	}
 	echo json_encode($ret);	
 ?>
