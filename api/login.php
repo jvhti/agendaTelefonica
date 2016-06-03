@@ -1,18 +1,34 @@
  <?php
+	/**	Codigos de retorno
+	 *  0 - Senha ou endereço invalido
+	 *	1
+	 */
+	header('Content-Type: application/json');
 	include "cfg/conexao.php";
+	
+	$ret = array("error"=>null, "error_cod"=>null, "return_code"=>null);
+	
+	session_start();
+	if(isset($_SESSION['email']) && $_SESSION['email'] != ""){
+		//Já está logado
+		$ret['return_code'] = 2;
+	}
 	
 	$login = $_POST['login'];
 	$senha = $_POST['senha'];
 	
-	$sql = "select * from user where email = '$login'";
+	$sql = "select * from User where email = '$login' and password = '$senha'";
 	$resultado = mysql_query($sql);
 	$linha = mysql_fetch_array($resultado);
 	
-	if ($senha == $linha['password']) {
-		session_start();
-		$_SESSION['nome'] = $linha['nome'];
-		$_SESSION['login'] = $linha['login']; 
+	if (mysql_query($sql)){
+		$ret['return_code'] = 1;
+		
+		$_SESSION['email'] = $email;
+	}else {
+		$ret["error"] = mysql_error();
+		$ret["error_cod"] = mysql_errno();
+		$ret['return_code'] = 0;
 	}
-	else {
-	}
+	echo json_encode($ret);	
 ?>
