@@ -14,7 +14,7 @@
 		$ret['return_code'] = 2;
 		$ret['error'] = "Password confirmation is different from password.";
 	}else{
-		$sql="insert into user (name, email, gender, password) values ('$nome', '$email', '$gender', '$password');";
+		$sql="insert into User (name, email, gender, password) values ('$nome', '$email', '$gender', '$password');";
 		if (mysql_query($sql)){
 			$ret['return_code'] = 1;
 		}else {
