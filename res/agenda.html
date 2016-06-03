@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<div class="page-header">
+    <h1>Lista de Contatos</h1>
+</div>
+
+<table id="contactList" style="text-align:center" class="table table-striped">
+	<tr >
+		<th style="text-align:center">Nome</th>
+		<th  style="text-align:center">Número Principal</th>
+		<th  style="text-align:center">E-mail</th>
+		<th  style="text-align:center">Visualizar</th>
+		<th  style="text-align:center">Editar</th>
+		<th  style="text-align:center">Apagar</th>
+	</tr>
+</table>
+<script type="text/javascript">
+var selectedID = -1;
+$.getJSON({
+	url: 'res/contacts.json',
+	complete: function(x){
+		x = x.responseJSON;
+		console.log(x);
+		for(var i = 0; i < x.length; ++i){
+			$("#contactList").append("<tr><td>"+x[i]["name"]+"</td><td>"+x[i]["numeros"][0]["number"]+"</td><td>"+x[i]["email"]+"</td><td><button onclick='details("+x[i]['index']+");' class='btn btn-info'><span class='glyphicon glyphicon-search'></span></button></td><td><button class='btn btn-warning' onclick='edit("+x[i]['index']+");'><span class='glyphicon glyphicon-pencil'></span></button></td><td><button class='btn btn-danger' onclick='erase("+x[i]['index']+");'><span class='glyphicon glyphicon-trash'></span></button></td></tr>");
+		}
+	}
+});
+
+function details(i){selectedID = i;openButDontActive("res/details.html?id="+i);}
+function edit(i){selectedID = i;alert("edit "+i);}
+function erase(i){selectedID = i;alert("erase "+i);}
+</script>
