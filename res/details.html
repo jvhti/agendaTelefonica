@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="pull-left">
+			<button onclick="$('#agendaLI').trigger('click');" class="btn btn-default">Voltar</button>
+		</div>
+		<div class="page-header">
+		    <center><h1 id="nameD">{NOME}</h1></center>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<table id="phoneD" style="text-align:center" class="table table-striped">
+			<tr >
+				<th style="text-align:center">ID</th>
+				<th  style="text-align:center">Número</th>
+			</tr>
+		</table>
+	</div>
+	<div class="col-sm-6">
+		<h3>E-mail: <span id="emailD">asdasd@gofdsdsa.com</span></h3>
+	</div>
+</div>
+
+<script type="text/javascript">
+$.getJSON({
+	url: 'res/contacts.json',
+	complete: function(x){
+		var index = selectedID;
+		console.log("index: "+index);
+		x = x.responseJSON;
+		x = x.find(function (u){return u.index == index});
+		console.log(x);
+		$("#nameD").text(x.name);
+		$("#emailD").text(x.email);
+		for(var i = 0; i < x["numeros"].length; ++i){
+			$("#phoneD").append("<tr><td>"+x["numeros"][i]["index"]+"</td><td>"+x["numeros"][i]["number"]+"</td></tr>");
+		}
+	}
+});
+</script>

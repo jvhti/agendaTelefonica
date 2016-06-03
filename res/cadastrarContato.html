@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<div class="col-sm-6 col-sm-offset-3" style="">
+  <div class="page-header">
+    <h1>Cadastro de Contato</h1>
+  </div>
+  <form method="get">
+    <input name="function" value="saveContact" hidden/>
+    <div class="form-group">
+      <label for="name">Nome: </label>
+      <input type="text" class="form-control" id="name"/>
+    </div>
+    <div class="form-group">
+      <label for="sname">Sobrenome: </label>
+      <input type="text" class="form-control" id="sname"/>
+    </div>
+    <div class="form-group">
+      <label for="nphone">Telefone: </label>
+      <div id="phoneList"></div>
+      <div class="input-group">
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-earphone"></span>
+        </span>
+        <input name="nphone" type="text" class="form-control" id="nphone"/>
+        <span class="input-group-btn">
+          <a href="#" class="btn btn-default" onclick="addInput($('#nphone'), $('#phoneList'), $(this));">+</a>
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="e-mail">E-mail: </label>
+      <input type="email" class="form-control" id="e-mail"/>
+    </div>
+    <input type="submit" class="btn btn-primary btn-block" value="Salvar" onclick="setTimeout(function(){$('#agendaLI').trigger('click');}, 100);"/>
+  </form>
+</div>
+
+<script type="text/javascript">
+function addInput(input, list, btn){
+  if(input.val() == "") {alert("Para adicionar uma novo campo, primeiro você precisa digitar algo.");return;}
+  if(list.attr('count') == null)
+    list.attr('count', 0);
+  else if(parseInt(list.attr('count')) > 7){
+    btn.parent().remove();
+    input.parent().children(".input-group-addon").children().removeClass("glyphicon-earphone").addClass("glyphicon-phone-alt");
+    alert("Você atingiu o número maximo de telefones para um mesmo contato.");
+    return;
+  }
+  list.append('<div class="form-group"><div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span><input type="text" name="phone_'+list.attr('count')+'" class="form-control" id="phone_'+list.attr('count')+'"/></div></div>');
+  $('#phone_'+list.attr('count')).val(input.val());
+  input.val("");
+  input.focus();
+  list.attr('count', parseInt(list.attr('count')) + 1);
+}
+</script>
