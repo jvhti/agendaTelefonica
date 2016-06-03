@@ -13,8 +13,9 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h2 class="modal-title text-center">Login</h2>
           </div>
-          <form validate="form" >
+          <form validate="form" onValidSubmit="logar" >
             <div class="modal-body">
+              <span id="alertArea_login"></span>
               <div class="form-group">
                 <label for="login_in">E-mail: </label>
                 <div class="input-group">
@@ -169,6 +170,22 @@ function cadastrar(form){
       }
     }
   }); 
+}
+function logar(form){
+  $.getJSON({
+    type: 'POST',
+    url: "api/login.php",
+    data: $(form).serialize(),
+    success: function(x){
+      console.log(x);
+      if(x.error != null || x.return_code != 1){
+        window.location.replace("main.html");
+      }else{
+        var alert = "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" onclick=\"$('#cadastro').modal('hide');\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Senha ou Usuario incorretos</strong> Você foi cadastrado com sucesso em nosso sistema. <a href=\"#\" onclick=\"$('#cadastro').modal('hide'); $('#login').modal('show');\">Click aqui</a> para fazer login.</div>";
+        $("#alertArea_login").html(alert);
+      }
+    } 
+  });
 }
   </script>
   <script type="text/javascript" src="js/validacao.js"></script>
