@@ -16,11 +16,11 @@
 	}else{
 		$sql="insert into User (name, email, gender, password) values ('$nome', '$email', '$gender', '$password');";
 		if (mysql_query($sql)){
-			$ret['return_code'] = 1;
+			$ret['return_code'] = 0;
 		}else {
 			$ret["error"] = mysql_error();
 			$ret["error_cod"] = mysql_errno();
-			$ret['return_code'] = 0;
+			$ret['return_code'] = 1;
 		}
 	}
 

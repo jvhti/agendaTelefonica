@@ -185,7 +185,7 @@ function cadastrar(form){
     data: $(form).serialize(),
     success: function(x){
       $("#cadastrar_btn").button("reset");
-      if(x.error != null || x.return_code != 1){
+      if(x.error != null || x.return_code != 0){
         if(x.error_cod == 1062){
           var alert = "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Email já cadastrado!</strong> Seu email já está cadastrado em nosso sistema! </div>";
           $("#alertArea_cadastro").html(alert);
