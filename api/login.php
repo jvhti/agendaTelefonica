@@ -15,17 +15,21 @@
 		$ret['return_code'] = 2;
 	}
 	
-	$login = $_POST['login'];
-	$senha = $_POST['senha'];
+	$email = $_POST['email_in'];
+	$senha = $_POST['password_in'];
 	
-	$sql = "select * from User where email = '$login' and password = '$senha'";
+	$sql = "select * from User where email = '$email' and password = '$senha'";
 	$resultado = mysql_query($sql);
 	$linha = mysql_fetch_array($resultado);
 	
-	if (mysql_query($sql)){
-		$ret['return_code'] = 0;
-		
-		$_SESSION['email'] = $email;
+//	$ret['comando'] = $sql;
+	if ($r = mysql_query($sql)){
+		if(mysql_num_rows($r) == 1){
+			$ret['return_code'] = 0;
+			$_SESSION['email'] = $email;
+		}else{
+			$ret['return_code'] = 3;
+		}
 	}else {
 		$ret["error"] = mysql_error();
 		$ret["error_cod"] = mysql_errno();
