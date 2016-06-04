@@ -20,7 +20,7 @@
         <span class="input-group-addon">
           <span class="glyphicon glyphicon-earphone"></span>
         </span>
-        <input name="nphone" type="text" class="form-control" id="nphone"/>
+        <input name="nphone" type="text" class="form-control phoneInput" id="nphone"/>
         <span class="input-group-btn">
           <a href="#" class="btn btn-default" onclick="addInput($('#nphone'), $('#phoneList'), $(this));">+</a>
         </span>
@@ -45,10 +45,15 @@ function addInput(input, list, btn){
     alert("Você atingiu o número maximo de telefones para um mesmo contato.");
     return;
   }
-  list.append('<div class="form-group"><div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span><input type="text" name="phone_'+list.attr('count')+'" class="form-control" id="phone_'+list.attr('count')+'"/></div></div>');
+  list.append('<div class="form-group"><div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span><input type="text" name="phone_'+list.attr('count')+'" class="form-control phoneInput" id="phone_'+list.attr('count')+'"/></div></div>');
   $('#phone_'+list.attr('count')).val(input.val());
   input.val("");
   input.focus();
   list.attr('count', parseInt(list.attr('count')) + 1);
 }
+
+
+$(".phoneInput").on("onkeypress", function() {
+   $(this).val("asda");
+});
 </script>
