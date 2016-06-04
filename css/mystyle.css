@@ -55,6 +55,10 @@
 .mainJumbotron .sub-page-header{
     margin-left:25px;
     color:white;
+    background-color: rgba(1,1,1,0.3);
+    padding: 10px;
+    border-radius: 5px;
+    text-shadow:1px 4px 5px black;
 }
 
 .mainJumbotron .buttons-container{
@@ -89,4 +93,13 @@
     .mainContainer .sub-page-header{
         font-size: 3em;
     }
+}
+
+.agendaBody{
+    background-image:url('../img/draft.png');
+    background-size:fill;
+}
+
+.brandImg{
+    width:25px;
 }

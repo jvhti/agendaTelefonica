@@ -60,12 +60,12 @@ function validateEmail(email, field, formSended){
 		$(field).attr("data-content","Seu e-mail não parece ser válido, por favor verifique.");
 		$(field).attr("data-placement", "top");
 		$(field).popover('show');
+		$(field).attr("aria-invalid", !res);
 	}
 	$(field).focus(
 		function(){$(this).popover("hide");}
 	);
 	$(field).parent().find(".glyphicon").removeClass().addClass("glyphicon").addClass(email === "" ? "glyphicon-user" : (res ? "glyphicon-ok" : "glyphicon-remove"));
-
 	return res;
 }
 
@@ -77,6 +77,7 @@ function validateCheckbox(check, field, formSended){
 			$(field).attr("data-content","Seu e-mail não parece ser válido, por favor verifique.");
 		$(field).attr("data-placement", "top");
 		$(field).popover('show');
+		$(field).attr("aria-invalid", !res);
 	}
 	if(!res && !formSended){
 		$(field).popover("hide");
@@ -96,6 +97,7 @@ function validateText(text, field, formSended){
 		$(field).attr("data-content","Este campo precisa ter "+($(field).attr("validadeMinSize") != "" ? "no minimo "+$(field).attr("validadeMinSize")+" caracteres" : "")+($(field).attr("validadeMaxSize") != "" ? "e no maximo "+$(field).attr("validadeMaxSize")+" caracteres" : "")+".");
 		$(field).attr("data-placement", "top");
 		$(field).popover('show');
+		$(field).attr("aria-invalid", !res);
 	}
 	if(!res && !formSended){
 		$(field).popover("hide");
@@ -126,6 +128,7 @@ function validatePassword(pass, field, formSended){
 		$(field).attr("data-placement", "top");
 		$(field).popover({ html : true });
 		$(field).popover('show');
+		$(field).attr("aria-invalid", !res);
 	}
 	if(!res && !formSended){
 		$(field).popover("hide");
