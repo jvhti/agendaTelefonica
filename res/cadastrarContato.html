@@ -60,14 +60,15 @@
               <div class="form-group">
                 <label for="estado">Estado: </label>
                 <select class="form-control" id="estado" name="estado">
+                  <option disabled selected>Selecione um Estado</option>
                 </select>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="cidade">Cidade: </label>
-                <select class="form-control" id="cidade">
-                  <option>Ceres</option>
+                <select class="form-control" name="cidade" id="cidade">
+                  <option disabled selected>Selecione uma Cidade</option>
                 </select>
               </div>
             </div>
@@ -128,10 +129,12 @@ $("input[type='file']").change(function(x){
 });
 
 function popularEstados(){
+	$("#estado").html("<option disabled selected>Carregando...</option>");
   $.getJSON({
     url: "api/estado_cidade/estados.json",
 	  complete: function(x){
 		  x = x.responseJSON['estados'];
+		  $("#estado").html("<option disabled selected>Selecione um Estado</option>");
 	    x.forEach(function(y){
 	      $("#estado").append("<option value='"+y['sigla']+"'>"+y['nome']+"</option>");
 	    });
@@ -139,5 +142,21 @@ function popularEstados(){
   });
 }
 
+function popularCidades(){
+  var estado = $("#estado").val();
+  if(estado == "") return;
+	$("#cidade").html("<option disabled selected>Carregando...</option>");
+  $.getJSON({
+    url: "api/estado_cidade/"+estado+".json",
+	  complete: function(x){
+		  x = x.responseJSON['cidades'];
+		  $("#cidade").html("<option disabled selected>Selecione uma Cidade</option>");
+	    x.forEach(function(y){
+	      $("#cidade").append("<option value='"+y+"'>"+y+"</option>");
+	    });
+	  }
+  });
+}
+$("#estado").change(function(){popularCidades();});
 popularEstados();
 </script>
