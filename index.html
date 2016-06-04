@@ -25,7 +25,12 @@
               </div>
               <div class="form-group">
                 <label for="password_in">Password: </label>
-                <input type="password" class="form-control" id="password_in"/>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-lock"></span>
+                  </div>
+                  <input type="password" class="form-control" id="password_in"/>
+                </div>
               </div>
               <div class="checkbox">
                 <label>
@@ -78,22 +83,37 @@
               <span id="alertArea_cadastro"></span>
               <div class="form-group">
                 <label for="name_cad">Nome: </label>
-                <input type="text" class="form-control" id="name_cad" name="name_cad" validateRequired="true" validate="text" validadeMinSize="5"/>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-user"></span>
+                  </div>
+                  <input type="text" class="form-control" id="name_cad" name="name_cad" validateRequired="true" validate="text" validadeMinSize="5"/>
+                </div>
               </div>
               <div class="form-group">
                 <label for="email_cad">E-mail: </label>
                 <div class="input-group">
-                  <span class="input-group-addon"><span class=" glyphicon glyphicon-user"></span></span>
+                  <span class="input-group-addon"><span class=" glyphicon glyphicon-envelope"></span></span>
                   <input type="text" class="form-control" name="email_cad" id="email_cad" validate="emailField" validateRequired="true"/>
                 </div>
               </div>
               <div class="form-group">
                 <label for="password_cad">Senha: </label>
-                <input type="password" class="form-control" id="password_cad" name="password_cad" validate="password" validateRequired="true" validateCheckConfirmation="password_cad_conf"/>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-lock"></span>
+                  </div>
+                  <input type="password" class="form-control" id="password_cad" name="password_cad" validate="password" validateRequired="true" validateCheckConfirmation="password_cad_conf"/>
+                </div>
               </div>
               <div class="form-group">
                 <label for="password_cad_conf">Confimação de Senha: </label>
-                <input type="password" class="form-control" id="password_cad_conf" name="password_cad_conf"  validate="password" validateRequired="true" validateCheckConfirmation="password_cad"/>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-lock"></span>
+                  </div>
+                  <input type="password" class="form-control" id="password_cad_conf" name="password_cad_conf"  validate="password" validateRequired="true" validateCheckConfirmation="password_cad"/>
+                </div>
               </div>
               <div class="form-group">
                 <label for="gender_cad">Sexo: </label>
@@ -111,7 +131,7 @@
               
             </div>
             <div class="modal-footer">
-              <button id="cadastrar_btn" type="submit" class="btn btn-primary btn-block" onclick="mostrarAlert(0);">Cadastrar</a>
+              <button id="cadastrar_btn" data-loading-text="Cadastrando..." type="submit" class="btn btn-primary btn-block">Cadastrar</a>
             </div>
           </div>
         </form>
@@ -152,12 +172,13 @@ function mostrarAlert(cod){
 }
 
 function cadastrar(form){
+  $("#cadastrar_btn").button("loading");
   $.getJSON({   
     type: 'POST',   
     url: "api/cadastarUsuario.php",   
     data: $(form).serialize(),
     success: function(x){
-      console.log(x);
+      $("#cadastrar_btn").button("reset");
       if(x.error != null || x.return_code != 1){
         if(x.error_cod == 1062){
           var alert = "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Email já cadastrado!</strong> Seu email já está cadastrado em nosso sistema! </div>";
@@ -166,7 +187,7 @@ function cadastrar(form){
       }else{
         var alert = "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" onclick=\"$('#cadastro').modal('hide');\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Sucesso!</strong> Você foi cadastrado com sucesso em nosso sistema. <a href=\"#\" onclick=\"$('#cadastro').modal('hide'); $('#login').modal('show');\">Click aqui</a> para fazer login.</div>";
         $("#alertArea_cadastro").html(alert);
-        $("#cadastrar_btn").prop("disabled",true);
+     //   $("#cadastrar_btn").prop("disabled",true);
       }
     }
   }); 
@@ -178,7 +199,7 @@ function logar(form){
     data: $(form).serialize(),
     success: function(x){
       console.log(x);
-      if(x.error != null || x.return_code != 1){
+      if(x.error != null || x.return_code != 0){
         window.location.replace("main.html");
       }else{
         var alert = "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" onclick=\"$('#cadastro').modal('hide');\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Senha ou Usuario incorretos</strong> Você foi cadastrado com sucesso em nosso sistema. <a href=\"#\" onclick=\"$('#cadastro').modal('hide'); $('#login').modal('show');\">Click aqui</a> para fazer login.</div>";
