@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div class="col-sm-6 col-sm-offset-3" style="">
+<div class="col-sm-8 col-sm-offset-2" style="">
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="container-fluid">
@@ -9,17 +9,7 @@
         <form method="get">
           <input name="function" value="saveContact" hidden/>
           <div class="row">
-            <div class="col-md-8">
-              <div class="form-group">
-                <label for="name">Nome: </label>
-                <input type="text" class="form-control" id="name"/>
-              </div>
-              <div class="form-group">
-                <label for="sname">Sobrenome: </label>
-                <input type="text" class="form-control" id="sname"/>
-              </div>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-md-push-8 col-sm-push-0">
               <div class="form-group">
                 <label style="width: 75%; margin: auto; display: flex;">
                   <div class="image-container">
@@ -30,6 +20,20 @@
                   </div>
                   <input type="file" name="foto" style="display:none"/>
                 </label>
+              </div>
+            </div>
+            <div class="col-md-8 col-md-pull-4 col-sm-pull-0">
+              <div class="form-group">
+                <label for="name">Nome: </label>
+                <input type="text" class="form-control" id="name"/>
+              </div>
+              <div class="form-group">
+                <label for="sname">Sobrenome: </label>
+                <input type="text" class="form-control" id="sname"/>
+              </div>
+              <div class="form-group">
+                <label for="sname">Sobrenome: </label>
+                <input type="text" class="form-control" id="sname"/>
               </div>
             </div>
           </div>
@@ -87,6 +91,21 @@
               </div>
             </div>
           </div>
+          <hr>
+          <div class="panel-group" style="width:100%;" id="accordion" role="tablist">
+            <div class="panel panel-default">
+              <a style="color:black; text-decoration: none;" role="button" data-toggle="collapse" data-parent="#accordion" href="#notasCollapse" aria-expanded="true" aria-controls="notasCollapse">
+                <div class="panel-heading" role="tab" id="notasHeader">
+                  <h4 class="panel-title">Notas</h4>
+                </div>
+              </a>
+              <div id="notasCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="Notas">
+                <div class="panel-body" style="padding:5px;">
+                  <textarea id="notas" rows="10" class="form-control" style="margin: 0px; padding:0px; width: 100%; max-width: 100%; min-width: 100%; resize:vertical; min-height: 2em; height: 100%;"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
           <input type="submit" class="btn btn-primary btn-block" value="Salvar" onclick="setTimeout(function(){$('#agendaLI').trigger('click');}, 100);"/>
         </form>
       </div>
@@ -124,6 +143,7 @@ $("input[type='file']").change(function(x){
           var height = $("#imagePreview").height();
           var width = $("#imagePreview").width();
           $("#imagePreview").attr("src", this.result).css("width", width).css("height", height);
+          $(".image-overlay").text("Alterar"); 
         }
     }
 });

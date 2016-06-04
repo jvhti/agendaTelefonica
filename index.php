@@ -9,10 +9,12 @@
 <html lang="pt-Br">
 <head>
 	<meta charset="utf-8">
-	<title>Number Book</title>
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.css" >
+	<title>CellBook</title>
+	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="css/mystyle.css" type="text/css" />
 </head>
 <body>
+  <!-- --------------- Modal Login --------------------- -->
 	<div id="login" class="modal fade" role="dialog">
      <div class="modal-dialog">
         <div class="modal-content">
@@ -20,7 +22,7 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h2 class="modal-title text-center">Login</h2>
           </div>
-          <form validate="form" onValidSubmit="logar">
+          <form validate="form" onValidSubmit="logar">  <!-- Form Login -->
             <div class="modal-body">
               <span id="alertArea_login"></span>
               <div class="form-group">
@@ -44,23 +46,25 @@
                   <input type="checkbox" id="remember_in"/> Lembrar-se de mim
                 </label>
               </div>
-              <div style="text-align:right"><a href="#" onclick="$('#login').modal('hide');$('#recuperar').modal('show');">Esqueceu a senha?</a></div>
+              <div class="text-right"><a href="#" onclick="$('#login').modal('hide');$('#recuperar').modal('show');">Esqueceu a senha?</a></div>
             </div>
             <div class="modal-footer">
               <button id="login_btn" data-loading-text="Login..." type="submit" class="btn btn-primary btn-block">Login</button>
             </div>
-          </form>
+          </form>  <!-- Form Login -->
         </div>
     </div>
   </div>
-  <div id="recuperar" class="modal fade" role="dialog">
+  <!-- --------------- Modal Login --------------------- -->
+  <!-- ------------- Modal Recuperar ------------------- -->
+  <div id="recuperar" class="modal fade" role="dialog"> <!-- Modal Recuperar -->
      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h2 class="modal-title text-center">Recuperar Senha</h2>
           </div>
-          <form validate="form">
+          <form validate="form">  <!-- Form Recuperar -->
             <div class="modal-body">
               <span id="alertArea_recuperar"></span>
               <div class="form-group">
@@ -74,10 +78,12 @@
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary btn-block">Recuperar</button>
             </div>
-          </form>
+          </form>  <!-- Form Recuperar -->
         </div>
     </div>
   </div>
+  <!-- ------------- Modal Recuperar ------------------- -->
+  <!-- -------------- Modal Cadastro ------------------- -->
   <div id="cadastro" class="modal fade" role="dialog">
      <div class="modal-dialog">
         <div class="modal-content">
@@ -85,7 +91,7 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h2 class="modal-title text-center">Cadastro</h2>
           </div>
-          <form onValidSubmit="cadastrar">
+          <form onValidSubmit="cadastrar">  <!-- Form Cadastro -->
             <div class="modal-body">
               <span id="alertArea_cadastro"></span>
               <div class="form-group">
@@ -139,84 +145,41 @@
             <div class="modal-footer">
               <button id="cadastrar_btn" data-loading-text="Cadastrando..." type="submit" class="btn btn-primary btn-block">Cadastrar</button>
             </div>
-          </form>
+          </form>  <!-- Form Cadastro -->
         </div>
     </div>
   </div>
-	<div style="height:100vh;min-height:100vh; margin: 0px; background-image: url('img/agenda.jpg'); background-size: cover ; background-repeat: no-repeat" class="jumbotron">
-		<div class="container" style="margin-top:65px">
+  <!-- -------------- Modal Cadastro ------------------- -->
+  <!-- ----------- Conteudo principal ------------------ -->
+	<div class="jumbotron mainJumbotron">
+		<div class="container mainContainer">
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="page-header" style="text-shadow:1px 4px 10px black; color:white">CellBook</h1>
+					<h1 class="page-header">CellBook</h1>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-11 col-md-offset-1">
-					<h2 style="margin-left:25px; color:white">Come to our side of the force. Here you can add all cell phone numbers, from all your friends...</h2>
+					<h2 class="sub-page-header">Come to our side of the force. Here you can add all cell phone numbers, from all your friends...</h2>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 50px">
+			<div class="row buttons-container">
 				<div class="col-md-4 col-md-offset-8 col-sm-6">
 					<div class="btn-group btn-group-lg">
-						<a href="#" style="min-width:100px" onclick="$('#cadastro').modal('show');" class="btn btn-primary btn-lg">Crie sua conta</a>
-						<a href="#" style="min-width:100px" onclick="$('#login').modal('show');" class="btn btn-default btn-lg">Já tem conta?</a>
+						<a href="#" onclick="$('#cadastro').modal('show');" class="btn btn-primary btn-lg min100">Crie sua conta</a>
+						<a href="#" onclick="$('#login').modal('show');" class="btn btn-default btn-lg min100">Já tem conta?</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script	src="js/jquery-2.2.3.js"></script>
-	<script	src="js/bootstrap.js"></script>
-  <script src="js/jquery.mask.js"></script>
-  <script type="text/javascript">
-///@author: jvhti@hotmail.com
-function mostrarAlert(cod){
-  if(cod == 1){
-    var alert = "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" onclick=\"$('#recuperar').modal('hide');\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Sucesso!</strong> Um email contendo a nova senha foi enviado para você. <a href=\"#\" onclick=\"$('#recuperar').modal('hide'); $('#login').modal('show');\">Click aqui</a> para fazer login.</div>";
-    $("#alertArea_recuperar").html(alert);
-  }
-}
-
-function cadastrar(form){
-  $("#cadastrar_btn").button("loading");
-  $.getJSON({   
-    type: 'POST',   
-    url: "api/cadastarUsuario.php",   
-    data: $(form).serialize(),
-    success: function(x){
-      $("#cadastrar_btn").button("reset");
-      if(x.error != null || x.return_code != 0){
-        if(x.error_cod == 1062){
-          var alert = "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Email já cadastrado!</strong> Seu email já está cadastrado em nosso sistema! </div>";
-          $("#alertArea_cadastro").html(alert);
-        }
-      }else{
-        var alert = "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" onclick=\"$('#cadastro').modal('hide');\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Sucesso!</strong> Você foi cadastrado com sucesso em nosso sistema. <a href=\"#\" onclick=\"$('#cadastro').modal('hide'); $('#login').modal('show');\">Click aqui</a> para fazer login.</div>";
-        $("#alertArea_cadastro").html(alert);
-     //   $("#cadastrar_btn").prop("disabled",true);
-      }
-    }
-  }); 
-}
-function logar(form){
-  $("#login_btn").button("loading");
-  $.getJSON({
-    type: 'POST',
-    url: "api/login.php",
-    data: $(form).serialize(),
-    success: function(x){
-      console.log(x);
-      $("#login_btn").button("reset");
-      if(x.error == null && x.return_code == 0){
-        window.location.replace("main.php");
-      }else{
-        var alert = "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" onclick=\"$('#cadastro').modal('hide');\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Senha ou Usuario incorretos</strong></div>";
-        $("#alertArea_login").html(alert);
-      }
-    } 
-  });
-}
-  </script>
+  <!-- ----------- Conteudo principal ------------------ -->
+  <!-- ------------------ Scripts ---------------------- -->
+	<script type="text/javascript" src="js/jquery-2.2.3.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="js/jquery.mask.js"></script>
   <script type="text/javascript" src="js/validacao.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <!-- ------------------ Scripts ---------------------- -->
 </body>
 </html>

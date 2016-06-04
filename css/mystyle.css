@@ -32,3 +32,35 @@
 .image-container:hover .image-overlay{
     background-color: rgba(0,0,0,0.5);
 }
+
+
+.mainContainer{
+    margin-top:65px;
+}
+
+.mainJumbotron{
+    height:100vh;
+    min-height:100vh;
+    margin: 0px; 
+    background-image: url('../img/agenda.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+}
+
+.mainJumbotron .page-header{
+    text-shadow:1px 4px 10px black;
+    color:white;
+}
+
+.mainJumbotron .sub-page-header{
+    margin-left:25px; color:white
+}
+
+.mainJumbotron .buttons-container{
+    margin-top: 50px
+}
+
+.min100{
+    min-width:100px;
+}
+}

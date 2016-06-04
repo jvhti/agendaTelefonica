@@ -1,7 +1,13 @@
-$("form").each(function(){$(this).on("submit", executarValidacao);});
-$("[validate]").on("keyup", function(e){validateField(this);});
-$("[validate]").on("focus", function(e){validateField(this);});
-$("[mask]").mask("00/00/0000");
+if (typeof jQuery === 'undefined') {
+  throw new Error('Validação requer jQuery');
+}
+
+$( document ).ready(function() {
+	$("form").each(function(){$(this).on("submit", executarValidacao);});
+	$("[validate]").on("keyup", function(e){validateField(this);});
+	$("[validate]").on("focus", function(e){validateField(this);});
+	$("[mask]").mask("00/00/0000");
+});
 
 var MAX_TEXT_SIZES = 255;
 var MAX_PASSWORD_SIZE = 16;
