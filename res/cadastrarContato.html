@@ -59,8 +59,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="estado">Estado: </label>
-                <select class="form-control" id="estado">
-                  <option>Goiás</option>
+                <select class="form-control" id="estado" name="estado">
                 </select>
               </div>
             </div>
@@ -127,4 +126,18 @@ $("input[type='file']").change(function(x){
         }
     }
 });
+
+function popularEstados(){
+  $.getJSON({
+    url: "api/estado_cidade/estados.json",
+	  complete: function(x){
+		  x = x.responseJSON['estados'];
+	    x.forEach(function(y){
+	      $("#estado").append("<option value='"+y['sigla']+"'>"+y['nome']+"</option>");
+	    });
+	  }
+  });
+}
+
+popularEstados();
 </script>

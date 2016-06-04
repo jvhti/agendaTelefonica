@@ -143,7 +143,7 @@
         </div>
     </div>
   </div>
-	<div style="height:100%;min-height:100%; margin: 0px; background-image: url('img/agenda.jpg'); background-size: cover ; background-repeat: no-repeat" class="jumbotron">
+	<div style="height:100vh;min-height:100vh; margin: 0px; background-image: url('img/agenda.jpg'); background-size: cover ; background-repeat: no-repeat" class="jumbotron">
 		<div class="container" style="margin-top:65px">
 			<div class="row">
 				<div class="col-md-12">
