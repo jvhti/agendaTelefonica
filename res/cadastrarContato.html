@@ -1,37 +1,97 @@
 <!DOCTYPE html>
 <div class="col-sm-6 col-sm-offset-3" style="">
-  <div class="page-header">
-    <h1>Cadastro de Contato</h1>
-  </div>
-  <form method="get">
-    <input name="function" value="saveContact" hidden/>
-    <div class="form-group">
-      <label for="name">Nome: </label>
-      <input type="text" class="form-control" id="name"/>
-    </div>
-    <div class="form-group">
-      <label for="sname">Sobrenome: </label>
-      <input type="text" class="form-control" id="sname"/>
-    </div>
-    <div class="form-group">
-      <label for="nphone">Telefone: </label>
-      <div id="phoneList"></div>
-      <div class="input-group">
-        <span class="input-group-addon">
-          <span class="glyphicon glyphicon-earphone"></span>
-        </span>
-        <input name="nphone" type="text" class="form-control phoneInput" id="nphone"/>
-        <span class="input-group-btn">
-          <a href="#" class="btn btn-default" onclick="addInput($('#nphone'), $('#phoneList'), $(this));">+</a>
-        </span>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="container-fluid">
+        <div class="page-header">
+          <h1>Cadastro de Contato</h1>
+        </div>
+        <form method="get">
+          <input name="function" value="saveContact" hidden/>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                <label for="name">Nome: </label>
+                <input type="text" class="form-control" id="name"/>
+              </div>
+              <div class="form-group">
+                <label for="sname">Sobrenome: </label>
+                <input type="text" class="form-control" id="sname"/>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label style="width: 75%; margin: auto; display: flex;">
+                  <div class="image-container">
+                    <img id="imagePreview" style="margin: auto;" class="img-circle" src="https://d1iu1mag0u723c.cloudfront.net/assets/no-avatar-25359d55aa3c93ab3466622fd2ce712d.jpg"></img>
+                    <div class="image-overlay">
+                      Procurar
+                    </div>
+                  </div>
+                  <input type="file" name="foto" style="display:none"/>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nphone">Telefone: </label>
+            <div id="phoneList"></div>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-earphone"></span>
+              </span>
+              <input name="nphone" type="text" class="form-control phoneInput" id="nphone"/>
+              <span class="input-group-btn">
+                <a href="#" class="btn btn-default" onclick="addInput($('#nphone'), $('#phoneList'), $(this));">+</a>
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="e-mail">E-mail: </label>
+            <div class="input-group">
+              <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+              <input type="email" class="form-control" id="e-mail"/>
+            </div>
+          </div>
+          <hr>
+          <h3>Endereço:</h3>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="estado">Estado: </label>
+                <select class="form-control" id="estado">
+                  <option>Goiás</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="cidade">Cidade: </label>
+                <select class="form-control" id="cidade">
+                  <option>Ceres</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                <label for="endereco">Endereço: </label>
+                <input type="text" name="endereco" id="endereco"  class="form-control"/>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="bairro">Bairro:</label>
+                <input type="text" name="endereco" id="endereco" class="form-control"/>
+              </div>
+            </div>
+          </div>
+          <input type="submit" class="btn btn-primary btn-block" value="Salvar" onclick="setTimeout(function(){$('#agendaLI').trigger('click');}, 100);"/>
+        </form>
       </div>
     </div>
-    <div class="form-group">
-      <label for="e-mail">E-mail: </label>
-      <input type="email" class="form-control" id="e-mail"/>
-    </div>
-    <input type="submit" class="btn btn-primary btn-block" value="Salvar" onclick="setTimeout(function(){$('#agendaLI').trigger('click');}, 100);"/>
-  </form>
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -52,8 +112,19 @@ function addInput(input, list, btn){
   list.attr('count', parseInt(list.attr('count')) + 1);
 }
 
+$("input[type='file']").change(function(x){
+   var files = !!this.files ? this.files : [];
+    if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
 
-$(".phoneInput").on("onkeypress", function() {
-   $(this).val("asda");
+    if (/^image/.test( files[0].type)){ // only image file
+        var reader = new FileReader(); // instance of the FileReader
+        reader.readAsDataURL(files[0]); // read the local file
+
+        reader.onloadend = function(){ // set image data as background of div
+          var height = $("#imagePreview").height();
+          var width = $("#imagePreview").width();
+          $("#imagePreview").attr("src", this.result).css("width", width).css("height", height);
+        }
+    }
 });
 </script>
