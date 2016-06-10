@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `cellbook`.`User` (
   `gender` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `photo` VARCHAR(45) NOT NULL,
-  `Contact_id` INT NOT NULL,
+  `Contact_id` INT NULL,
   PRIMARY KEY (`email`),
   INDEX `fk_User_Contact1_idx` (`Contact_id` ASC),
   CONSTRAINT `fk_User_Contact1`
