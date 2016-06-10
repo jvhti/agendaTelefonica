@@ -53,8 +53,6 @@ function cadastrarContato(form){
     type: 'POST',   
     url: "api/cadastrarContato.php",   
     data: $(form).serialize(),
-    complete: function(x){
-        console.log(x);},
     success: function(x){
         console.log(x);
       $("#cadastrar_btn").button("reset");
@@ -63,6 +61,31 @@ function cadastrarContato(form){
       }else{
       //  var alert = "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" onclick=\"$('#cadastro').modal('hide');\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Sucesso!</strong> Você foi cadastrado com sucesso em nosso sistema. <a href=\"#\" onclick=\"$('#cadastro').modal('hide'); $('#login').modal('show');\">Click aqui</a> para fazer login.</div>";
       //  $("#alertArea_cadastro").html(alert);
+        //Cadastrar numeros
+        cadastrarNumerosContato(x['insert_id']);
+        alert("Cadastrado com sucesso!");
+      }
+    }
+  }); 
+}
+
+function cadastrarNumerosContato(id){
+  console.log("CadastrandoContatos");
+  var numeros = [];
+  numeros.push($("#nphone").val());
+  $("#phoneList > .form-group > .input-group > input").each(function(){numeros.push($(this).val());});
+  $.getJSON({  
+    url: "api/cadastrarNumero.php?numeros="+JSON.stringify(numeros),
+    success: function(x){
+        console.log(x);
+      $("#cadastrar_btn").button("reset");
+      if(x.error != null || x.return_code != 0){
+        console.log(x);
+      }else{
+      //  var alert = "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" onclick=\"$('#cadastro').modal('hide');\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Sucesso!</strong> Você foi cadastrado com sucesso em nosso sistema. <a href=\"#\" onclick=\"$('#cadastro').modal('hide'); $('#login').modal('show');\">Click aqui</a> para fazer login.</div>";
+      //  $("#alertArea_cadastro").html(alert);
+        //Cadastrar numeros
+        cadastrarNumerosContato(x['insert_id']);
         alert("Cadastrado com sucesso!");
       }
     }
