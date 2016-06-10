@@ -1,16 +1,36 @@
-<?php		
+<?php
+	header('Content-Type: application/json');
 	include "cfg/conexao.php";
-	$nome = $_POST['name'];
-	$sexo = $_POST['gender'];
-	$email = $_POST['email'];
-	$senha = $_POST['senha'];
-	$photo = $_POST['photo'];
-	$sql="insert into user (name,email,gender,photo,password) values ('$nome','$email','$sexo','$photo','$senha');";
-	if (mysql_query($sql)) {
-		echo "25";
+	
+	$ret = array("error"=>null, "error_cod"=>null, "return_code"=>null);
+	session_start();
+	if(!(isset($_SESSION['email']) && $_SESSION['email'] != "")){
+		$ret['return_code'] = 2;
+		echo json_encode($ret);	
+		return;
 	}
-	else {
-		echo "0".mysql_error();
+	$user_email = $_SESSION['email'];
+	
+	$nome = $_POST['name'];
+	$sobrenome = $_POST['sobrenome'];
+	$foto = $_POST['foto'];
+	$email = $_POST['email'];
+	$estado = $_POST['estado'];
+	$cidade = $_POST['cidade'];
+	$endereco = $_POST['endereco'];
+	$bairro = $_POST['bairro'];
+	$notas = $_POST['notas'];
+	$telefones = $_POST['telefones'];
+	
+	
+	$sql="insert into Contact(name, lastName, email, photo, city, state, address, neighborhood, notes, User_email) value('$nome', '$sobrenome', '$email', '$foto', '$cidade', '$estado', '$endereco', '$bairro', '$notas', '$user_email');";
+	if (mysql_query($sql)){
+		$ret['return_code'] = 0;
+	}else {
+		$ret["error"] = mysql_error();
+		$ret["error_cod"] = mysql_errno();
+		$ret['return_code'] = 1;
 	}
 		
+	echo json_encode($ret);	
 ?>
