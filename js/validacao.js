@@ -53,6 +53,8 @@ function validateField(campo, formSended){
 }
 
 function validateEmail(email, field, formSended){
+	if(email == "" && (!$(field).hasOwnProperty("validateRequired") || $(field).prop("validateRequired") == "false"))
+		return true;
 	var res = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email);	
 
 	if(!res && formSended){

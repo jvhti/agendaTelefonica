@@ -75,7 +75,7 @@ function cadastrarNumerosContato(id){
   numeros.push($("#nphone").val());
   $("#phoneList > .form-group > .input-group > input").each(function(){numeros.push($(this).val());});
   $.getJSON({  
-    url: "api/cadastrarNumero.php?numeros="+JSON.stringify(numeros),
+    url: "api/cadastrarNumero.php?id="+id+"&numeros="+JSON.stringify(numeros),
     success: function(x){
         console.log(x);
       $("#cadastrar_btn").button("reset");
