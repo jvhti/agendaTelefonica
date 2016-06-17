@@ -21,7 +21,7 @@ $.getJSON({
 		x = x.responseJSON;
 		console.log(x);
 		for(var i = 0; i < x.length; ++i){
-			$("#contactList").append("<tr><td>"+x[i]["name"]+"</td><td>"+x[i]["numeros"][0]["number"]+"</td><td>"+x[i]["email"]+"</td><td><button onclick='details("+x[i]['index']+");' class='btn btn-info'><span class='glyphicon glyphicon-search'></span></button></td><td><button class='btn btn-warning' onclick='edit("+x[i]['index']+");'><span class='glyphicon glyphicon-pencil'></span></button></td><td><button class='btn btn-danger' onclick='erase("+x[i]['index']+");'><span class='glyphicon glyphicon-trash'></span></button></td></tr>");
+			$("#contactList").append("<tr><td>"+x[i]+"</td><td>"+x[i]["numeros"][0]["number"]+"</td><td>"+x[i]["email"]+"</td><td><button onclick='details("+x[i]['index']+");' class='btn btn-info'><span class='glyphicon glyphicon-search'></span></button></td><td><button class='btn btn-warning' onclick='edit("+x[i]['index']+");'><span class='glyphicon glyphicon-pencil'></span></button></td><td><button class='btn btn-danger' onclick='erase("+x[i]['index']+");'><span class='glyphicon glyphicon-trash'></span></button></td></tr>");
 		}
 	}
 });
