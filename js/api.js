@@ -49,10 +49,13 @@ function sair(){
 
 function cadastrarContato(form){
   $("#cadastrar_btn").button("loading");
+  var data = new FormData(form);
   $.getJSON({   
     type: 'POST',   
     url: "api/cadastrarContato.php",   
-    data: $(form).serialize(),
+    data: data,
+    processData: false,
+    contentType: false,
     success: function(x){
         console.log(x);
       $("#cadastrar_btn").button("reset");
@@ -72,8 +75,14 @@ function cadastrarContato(form){
 function cadastrarNumerosContato(id){
   console.log("CadastrandoContatos");
   var numeros = [];
-  numeros.push($("#nphone").val());
-  $("#phoneList > .form-group > .input-group > input").each(function(){numeros.push($(this).val());});
+  if($("#nphone").val() != "")
+    numeros.push($("#nphone").val());
+  $("#phoneList > .form-group > .input-group > input").each(function(){
+    if($(this).val() != "")
+      numeros.push($(this).val());
+  });
+  if(numeros.length == 0)
+    return;
   $.getJSON({  
     url: "api/cadastrarNumero.php?id="+id+"&numeros="+JSON.stringify(numeros),
     success: function(x){

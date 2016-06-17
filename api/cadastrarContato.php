@@ -13,7 +13,6 @@
 	
 	$nome = $_POST['nome'];
 	$sobrenome = $_POST['sobrenome'];
-	$foto = $_POST['foto'];
 	$email = $_POST['email'];
 	$estado = $_POST['estado'];
 	$cidade = $_POST['cidade'];
@@ -21,7 +20,7 @@
 	$bairro = $_POST['bairro'];
 	$notas = $_POST['notas'];
 	$telefones = $_POST['telefones'];
-	
+	$foto = $_FILES['foto']['name'];
 	
 	$sql="insert into Contact(name, lastName, email, photo, city, state, address, neighborhood, notes, User_email) value('$nome', '$sobrenome', '$email', '$foto', '$cidade', '$estado', '$endereco', '$bairro', '$notas', '$user_email');";
 	if (mysql_query($sql)){
