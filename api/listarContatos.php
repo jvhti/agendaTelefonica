@@ -7,19 +7,19 @@
 	if(!(isset($_SESSION['email']) && $_SESSION['email'] != "")){
 		$ret['return_code'] = 2;
 		echo json_encode($ret);	
-		return;
 	}
 	$user_email = $_SESSION['email'];
-	$sql = "SElECT Contact.name,Contact.email FROM Contact where  Contact.User_email = '$user_email' group by Contact.id";
+
+	$sql = "SElECT Contact.id,Contact.name,Contact.email, phone.phoneNumber 
+	        FROM Contact LEFT JOIN phone ON Contact.id = phone.Contact_id 
+	        WHERE Contact.User_email = '$user_email' 
+	        GROUP BY Contact.id";
 	if ($result = mysql_query($sql)){
 		$ret['return_code'] = 0;
-		 
-		$id = 0;
-		while($r = mysql_fetch_assoc($result)){
-			$linha[$id] = $r;
-			++$id;
+		while ($line = mysql_fetch_assoc($result)) {
+			$ret[] = $line;
 		}
-		$ret["values"] = $linha;
+		
 	}else {
 		$ret["error"] = mysql_error();
 		$ret["error_cod"] = mysql_errno();

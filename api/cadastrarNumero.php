@@ -8,7 +8,7 @@
 		$ret['return_code'] = 2;
 		echo json_encode($ret);	
 		return;
-	}
+
 	$user_email = $_SESSION['email'];
 	
 	$numeros = json_decode($_GET['numeros']);

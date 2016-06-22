@@ -1,6 +1,7 @@
 <?php
 	header('Content-Type: application/json');
 	include "cfg/conexao.php";
+	include "cfg/upload.php";
 	
 	$ret = array("error"=>null, "error_cod"=>null, "return_code"=>null);
 	session_start();
@@ -30,16 +31,15 @@
 	 
 	    $extensao = strtolower ( $extensao );
 	 
-	    if ( strstr ( '.jpg;.jpeg;.gif;.png', $extensao ) ) {
+	    if ( strstr ( $profile_formats , $extensao ) ) {
 	        $novoNome = uniqid ( time () );
-	        $destino = $_SERVER['DOCUMENT_ROOT'] . '/imagens/' . basename($novoNome);
+	        $destino = $_SERVER['DOCUMENT_ROOT'] . $profile_path . basename($novoNome) . '.' . $extensao;
 	 
 	        if ( @move_uploaded_file ( $arquivo_tmp, $destino ) ) {
 	        	$foto = $novoNome;
 	        }
 	        else{
 	        	$ret["error"] = 5;
-	        	$ret["image_error"] ="Não foi possivel mover $arquivo_tmp para $destino";
 	        	$foto = "";
 	        }
 	            
