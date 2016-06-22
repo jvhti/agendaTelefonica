@@ -1,6 +1,15 @@
  <?php
+	header('Content-Type: application/json');
 	include "cfg/conexao.php";
-	$id = $_GET['idContact'];
-	$delete = "delete from contact where idContact = $id";
-	mysql_query($delete) or die(mysql_error());
+	
+	$ret = array("error"=>null, "error_cod"=>null, "return_code"=>null);
+	session_start();
+	if(!(isset($_SESSION['email']) && $_SESSION['email'] != "")){
+		$ret['return_code'] = 2;
+		echo json_encode($ret);	
+		return;
+	}
+
+	$user_email = $_SESSION['email'];
+	$id = $_GET['id'];
 ?>
