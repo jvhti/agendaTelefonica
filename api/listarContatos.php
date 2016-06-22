@@ -7,10 +7,9 @@
 	if(!(isset($_SESSION['email']) && $_SESSION['email'] != "")){
 		$ret['return_code'] = 2;
 		echo json_encode($ret);	
-		exit('over');
 	}
 	$user_email = $_SESSION['email'];
-	$sql = "SElECT Contact.name,Contact.email, phone.phoneNumber 
+	$sql = "SElECT Contact.id,Contact.name,Contact.email, phone.phoneNumber 
 	        FROM Contact LEFT JOIN phone ON Contact.id = phone.Contact_id 
 	        WHERE Contact.User_email = '$user_email' 
 	        GROUP BY Contact.id";

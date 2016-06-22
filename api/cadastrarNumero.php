@@ -3,7 +3,7 @@
 	$idPhone = $_POST['idPhone'];
 	$phoneNumber = $_POST['phoneNumber'];
 	$idcontact = $_POST['idContact'];
-	$sql="insert into phone (phoneNumber,idPhone,Contact_idContact) values ('$phoneNumber','$idPhone','$idcontact');";
+	$sql="insert into phone (phoneNumber,Contact_id) values ('$phoneNumber','$idcontact');";
 	if (mysql_query($sql)) {
 		echo "cadastrada com sucesso #25";
 	}

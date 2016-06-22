@@ -24,19 +24,52 @@
 </div>
 
 <script type="text/javascript">
+	console.log(selectedID);
+	datas = {
+		idContact : selectedID
+	}
 $.getJSON({
-	url: 'res/contacts.json',
+	url: 'api/listarContatos.php',
 	complete: function(x){
 		var index = selectedID;
 		console.log("index: "+index);
 		x = x.responseJSON;
-		x = x.find(function (u){return u.index == index});
-		console.log(x);
+		x = $(x).find(function (u){return u.id == index});
+		//console.log(x);
 		$("#nameD").text(x.name);
 		$("#emailD").text(x.email);
-		for(var i = 0; i < x["numeros"].length; ++i){
-			$("#phoneD").append("<tr><td>"+x["numeros"][i]["index"]+"</td><td>"+x["numeros"][i]["number"]+"</td></tr>");
+		var i = 0;
+		$.getJSON({
+			dataType: "GET",
+			url:'api/listarNumeros.php',
+			data: datas,
+			complete: function(xe){
+				while(xe[i] != undefined){
+					//console.log
+					$("#phoneD").append("<tr><td>"+xe[i].id+"</td><td>"+xe[i].phoneNumber+"</td></tr>");
+					console.log(xe);
+					i++;
+				}
+			}
+		});
+	}
+});
+var i = 0;
+$.getJSON({
+	type: "GET",
+	url:'api/listarNumeros.php',
+	data: datas,
+	complete: function(xe){
+		xe = xe.responseJSON;
+		while(xe[i] != undefined){
+			//console.log
+			$("#phoneD").append("<tr><td>"+xe[i].id+"</td><td>"+xe[i].phoneNumber+"</td></tr>");
+			console.log(xe.length);
+			i++;
 		}
+	},
+	error:function(xd,errorThrow){
+		console.log(errorThrow);
 	}
 });
 </script>
