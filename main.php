@@ -44,7 +44,7 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extra <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li class="openContent"><a id="cadLI" href="res/cadastrarContato.html">Adicionar Contato</a></li>
+              <li class="openContent"><a id="cadLI" href="res/cadastrarContato.php">Adicionar Contato</a></li>
               <li role="separator" class="divider"></li>
               <li><a href="#" onclick="sair();">Sair</a></li>
             </ul>
