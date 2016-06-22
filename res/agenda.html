@@ -23,7 +23,7 @@ $.getJSON({
 		console.log(x);
 		//console.log(x.length);
 		while(x[i] != undefined){
-			$("#contactList").append("<tr><td>"+x[i].name+"</td><td>"+((x[i].phoneNumber!=null)?x[i].phoneNumber:"não possui")+"</td><td>"+x[i].email+"</td><td><button onclick='details("+x[i].id+");' class='btn btn-info'><span class='glyphicon glyphicon-search'></span></button></td><td><a class='btn btn-warning' href='cadastrarContato.php?id="+x[i].id+"'><span class='glyphicon glyphicon-pencil'></span></a></td><td><button class='btn btn-danger' onclick='erase("+x[i].id+");'><span class='glyphicon glyphicon-trash'></span></button></td></tr>");
+			$("#contactList").append("<tr><td>"+x[i].name+"</td><td>"+((x[i].phoneNumber!=null)?x[i].phoneNumber:"não possui")+"</td><td>"+x[i].email+"</td><td><button onclick='details("+x[i].id+");' class='btn btn-info'><span class='glyphicon glyphicon-search'></span></button></td><td><button class='btn btn-warning' onclick='edit("+x[i].id+");'><span class='glyphicon glyphicon-pencil'></span></button></td><td><button class='btn btn-danger' onclick='erase("+x[i].id+");'><span class='glyphicon glyphicon-trash'></span></button></td></tr>");
 			i++;
 		}
 	}
