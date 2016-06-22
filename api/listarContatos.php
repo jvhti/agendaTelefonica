@@ -10,10 +10,15 @@
 		return;
 	}
 	$user_email = $_SESSION['email'];
-	$sql = "SElECT Contact.name,Contact.email,phone.phoneNumber FROM Contact,phone where Contact.id = phone.Contact_id AND Contact.User_email = '$user_email' GROUP BY Contact.id";
+	$sql = "SElECT Contact.name,Contact.email FROM Contact where  Contact.User_email = '$user_email' group by Contact.id";
 	if ($result = mysql_query($sql)){
 		$ret['return_code'] = 0;
-		$linha = mysql_fetch_array($result);
+		 
+		$id = 0;
+		while($r = mysql_fetch_assoc($result)){
+			$linha[$id] = $r;
+			++$id;
+		}
 		$ret["values"] = $linha;
 	}else {
 		$ret["error"] = mysql_error();

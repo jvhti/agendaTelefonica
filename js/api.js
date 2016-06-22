@@ -50,7 +50,7 @@ function sair(){
 function cadastrarContato(form){
   $("#cadastrar_btn").button("loading");
   var data = new FormData(form);
-  $.getJSON({   
+  $.ajax({   
     type: 'POST',   
     url: "api/cadastrarContato.php",   
     data: data,
