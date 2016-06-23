@@ -73,20 +73,30 @@ function cadastrarContato(form){
 }
 
 function cadastrarNumerosContato(id){
-  console.log("CadastrandoContatos");
+  if(!editar)
+    console.log("Cadastrando Numeros");
+  else
+    console.log("Atualizando Numeros");
+    
   var numeros = [];
-  if($("#nphone").val() != "")
-    numeros.push($("#nphone").val());
+  var numeros_id = [];
+  
+  if($("#nphone").val() != ""){
+    numeros.push({id:$("#nphone").data("id"), phone:$("#nphone").val()});
+  }
   $("#phoneList > .form-group > .input-group > input").each(function(){
     if($(this).val() != "")
-      numeros.push($(this).val());
+      numeros.push({id:$(this).data("id"), phone:$(this).val()});
   });
+  console.log("call API: api/cadastrarNumero.php?id="+id+"&numeros="+JSON.stringify(numeros)+((editar) ? "&editar=true" : "" ));
   if(numeros.length == 0)
     return;
+    
+    console.log(numeros);
   $.getJSON({  
-    url: "api/cadastrarNumero.php?id="+id+"&numeros="+JSON.stringify(numeros),
+    url: "api/cadastrarNumero.php?id="+id+"&numeros="+JSON.stringify(numeros)+((editar) ? "&editar=true" : "" ),
     success: function(x){
-        console.log(x);
+      console.log(x);
       $("#cadastrar_btn").button("reset");
       if(x.error != null || x.return_code != 0){
         console.log(x);
@@ -94,7 +104,7 @@ function cadastrarNumerosContato(id){
       //  var alert = "<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" onclick=\"$('#cadastro').modal('hide');\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><strong>Sucesso!</strong> Você foi cadastrado com sucesso em nosso sistema. <a href=\"#\" onclick=\"$('#cadastro').modal('hide'); $('#login').modal('show');\">Click aqui</a> para fazer login.</div>";
       //  $("#alertArea_cadastro").html(alert);
         //Cadastrar numeros
-        cadastrarNumerosContato(x['insert_id']);
+      // cadastrarNumerosContato(x['insert_id']);
         alert("Cadastrado com sucesso!");
       }
     }

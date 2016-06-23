@@ -46,7 +46,8 @@
           <h1><?php echo (($id == -1) ? "Cadastro de " : "Editar ") . "Contato";?></h1>
         </div>
         <form onValidSubmit="cadastrarContato" method="post" enctype="multipart/form-data">
-          <input name="function" value="saveContact" hidden/>
+          <input name="function" value="<?php echo ($id == -1) ? 'saveContact' : 'updateContact';?>" hidden/>
+          <input name="id" value="<?php echo ($id == -1) ? '' : $id;?>" hidden/>
           <div class="row">
             <div class="col-md-4 col-md-push-8 col-sm-push-0">
               <div class="form-group">
@@ -78,12 +79,30 @@
           </div>
           <div class="form-group ">
             <label for="nphone">Telefone: </label>
-            <div id="phoneList"></div>
+            <div id="phoneList">
+              <?php
+  $numberCount = 0;
+  if($id != -1){
+    $sql = "select * from phone where Contact_id = $id;";
+    $result = mysql_query($sql);
+    if(!$result)
+      die("MySQL error");
+    $nr = mysql_num_rows($result);
+    while($r = mysql_fetch_array($result)){
+      if($numberCount < $nr - 1)
+        echo '<div class="form-group"><div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span><input type="text" name="phone_'.$numberCount.'" class="form-control phoneInput" value="'.$r['phoneNumber'].'" data-id="'.$r['id'].'" id="phone_'.$numberCount.'"/></div></div>';
+      else
+        $lastNumber = $r;
+      ++$numberCount;
+    }
+  }
+              ?>
+            </div>
             <div class="input-group">
               <span class="input-group-addon">
                 <span class="glyphicon glyphicon-earphone"></span>
               </span>
-              <input name="nphone" type="text" class="form-control phoneInput" id="nphone" mask=""/>
+              <input name="nphone" type="text" class="form-control phoneInput" id="nphone" data-id="<?php echo ($id != -1) ? $lastNumber['id'] : ""; ?>" mask="" value="<?php echo ($id != -1) ? $lastNumber['phoneNumber'] : ""; ?>"/>
               <span class="input-group-btn">
                 <a href="#" class="btn btn-default" onclick="addInput($('#nphone'), $('#phoneList'), $(this));">+</a>
               </span>
@@ -140,7 +159,7 @@
               </a>
               <div id="notasCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="Notas">
                 <div class="panel-body" style="padding:5px;">
-                  <textarea name="notas" id="notas" rows="10" class="form-control" style="margin: 0px; padding:0px; width: 100%; max-width: 100%; min-width: 100%; resize:vertical; min-height: 2em; height: 100%;" value="<?php echo $notes;?>"></textarea>
+                  <textarea name="notas" id="notas" rows="10" class="form-control" style="margin: 0px; padding:0px; width: 100%; max-width: 100%; min-width: 100%; resize:vertical; min-height: 2em; height: 100%;"><?php echo $notes;?></textarea>
                 </div>
               </div>
             </div>
@@ -203,11 +222,13 @@ function popularEstados(){
 	$("#estado").html("<option disabled selected>Carregando...</option>");
   $.getJSON({
     url: "api/estado_cidade/estados.json",
-	  complete: function(x){
-		  x = x.responseJSON['estados'];
+	  success: function(x){
+		  x = x['estados'];
 		  $("#estado").html("<option disabled selected>Selecione um Estado</option>");
 	    x.forEach(function(y){
-	      $("#estado").append("<option value='"+y['sigla']+"'"+(editar && state != "" && state == y['nome'] ? "selected" : "")+">"+y['nome']+"</option>");
+	      var t = $("#estado").append("<option value='"+y['sigla']+"'"+(editar && state != "" && state == y['nome'] ? "selected" : "")+">"+y['nome']+"</option>");
+	      if(state == y['sigla'])
+	        $("#estado").val(y['sigla']);
 	    });
 	    if(editar) popularCidades();
 	  }
@@ -220,8 +241,8 @@ function popularCidades(){
 	$("#cidade").html("<option disabled selected>Carregando...</option>");
   $.getJSON({
     url: "api/estado_cidade/"+estado+".json",
-	  complete: function(x){
-		  x = x.responseJSON['cidades'];
+	  success: function(x){
+		  x = x['cidades'];
 		  $("#cidade").html("<option disabled selected>Selecione uma Cidade</option>");
 	    x.forEach(function(y){
 	      $("#cidade").append("<option value='"+y+"' "+(editar && city != "" && city == y ? "selected" : "")+">"+y+"</option>");
