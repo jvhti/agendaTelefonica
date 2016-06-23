@@ -3,6 +3,21 @@
     <h1>Lista de Contatos</h1>
 </div>
 
+<div class="modal fade" id="conf_delete" tabindex="-1" role="dialog" aria-labelledby="conf_delete_text">
+  <div class="modal-dialog modal-sm" role="alertdialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="conf_delete_text">Tem certeza que deseja apagar o contato?</h4>
+      </div>
+      <div class="modal-footer">
+        <button id="conf_delete_sim" type="button" onclick="eraseConfirmated();" class="btn btn-danger" data-loading-text="Deletando...">Sim</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <table id="contactList" style="text-align:center" class="table table-striped">
 	<tr >
 		<th style="text-align:center">Nome</th>
@@ -23,7 +38,7 @@ $.getJSON({
 		console.log(x);
 		//console.log(x.length);
 		while(x[i] != undefined){
-			$("#contactList").append("<tr><td>"+x[i].name+"</td><td>"+((x[i].phoneNumber!=null)?x[i].phoneNumber:"não possui")+"</td><td>"+x[i].email+"</td><td><button onclick='details("+x[i].id+");' class='btn btn-info'><span class='glyphicon glyphicon-search'></span></button></td><td><button class='btn btn-warning' onclick='edit("+x[i].id+");'><span class='glyphicon glyphicon-pencil'></span></button></td><td><button class='btn btn-danger' onclick='erase("+x[i].id+");'><span class='glyphicon glyphicon-trash'></span></button></td></tr>");
+			$("#contactList").append("<tr id='cont_"+x[i].id+"'><td>"+x[i].name+"</td><td>"+((x[i].phoneNumber!=null)?x[i].phoneNumber:"não possui")+"</td><td>"+x[i].email+"</td><td><button onclick='details("+x[i].id+");' class='btn btn-info'><span class='glyphicon glyphicon-search'></span></button></td><td><button class='btn btn-warning' onclick='edit("+x[i].id+");'><span class='glyphicon glyphicon-pencil'></span></button></td><td><button class='btn btn-danger' onclick='erase("+x[i].id+");'><span class='glyphicon glyphicon-trash'></span></button></td></tr>");
 			i++;
 		}
 	}
@@ -31,5 +46,36 @@ $.getJSON({
 
 function details(i){selectedID = i;openButDontActive("res/details.html?id="+i);}
 function edit(i){selectedID = i;alert("edit "+i);}
-function erase(i){selectedID = i;alert("erase "+i);}
+
+var eraseID = -1;
+function erase(i){
+	eraseID = i;
+	
+	$("#conf_delete_sim").button("reset");
+	$("#conf_delete").modal("show");
+}
+
+function eraseConfirmated(){
+	if(eraseID == -1) return;
+	$("#conf_delete_sim").button("loading");
+	$.getJSON({
+		url: 'api/deletarContato.php?cont_id='+eraseID,
+		complete: function(x){
+			x = x.responseJSON;
+			console.log(x);
+		    $("#conf_delete").modal("hide");
+			if(x.return_code != 0){
+				if(x.return_code == 3){
+					alert("Você não pode apagar este contato, pois ele não é seu!");
+				}else if(x.return_code == 2){
+        			window.location.replace("index.php");
+				}else{
+					alert("Error: "+x.return_code+"\nError_Desc: "+x.error);
+				}
+			}else
+				$("#cont_"+eraseID).remove();
+		}
+		
+	});
+}
 </script>
