@@ -32,8 +32,7 @@
 var selectedID = -1;
 $.getJSON({
 	url: 'api/listarContatos.php',
-	complete: function(x){
-		x = x.responseJSON;
+	success: function(x){
 		var i = 0;
 		console.log(x);
 		//console.log(x.length);
@@ -45,7 +44,10 @@ $.getJSON({
 });
 
 function details(i){selectedID = i;openButDontActive("res/details.html?id="+i);}
-function edit(i){selectedID = i;alert("edit "+i);}
+function edit(i){
+	selectedID = i;
+	loadContent("res/cadastrarContato.php?id="+i);
+}
 
 var eraseID = -1;
 function erase(i){
@@ -60,8 +62,7 @@ function eraseConfirmated(){
 	$("#conf_delete_sim").button("loading");
 	$.getJSON({
 		url: 'api/deletarContato.php?cont_id='+eraseID,
-		complete: function(x){
-			x = x.responseJSON;
+		success: function(x){
 			console.log(x);
 		    $("#conf_delete").modal("hide");
 			if(x.return_code != 0){
