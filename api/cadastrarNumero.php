@@ -30,30 +30,20 @@
 		die();
 	}
 
-			$ret['editar'] = $editar;
-	if($editar){
-		foreach ($numeros as $numero) {
+	$ret['editar'] = $editar;
+	foreach ($numeros as $numero) {
+		if($editar && $numvero['id'] != "")
 			$sql="update phone set phoneNumber = '".$numero['phone']."' where Contact_id = $id and id = ".$numero['id'].";";
-			if (!mysql_query($sql)){
-				$ret["error"] = mysql_error();
-				$ret["error_cod"] = mysql_errno();
-				$ret['return_code'] = 1;
-				echo json_encode($ret);
-				die();
-			}
-		}
-	}else{
-		foreach ($numeros as $numero) {
+		else
 			$sql="insert into phone(phoneNumber, Contact_id) value('".$numero['phone']."', $id);";
-			if (!mysql_query($sql)){
-				$ret["error"] = mysql_error();
-				$ret["error_cod"] = mysql_errno();
-				$ret['return_code'] = 1;
-				echo json_encode($ret);
-				die();
-			}
+
+		if (!mysql_query($sql)){
+			$ret["error"] = mysql_error();
+			$ret["error_cod"] = mysql_errno();
+			$ret['return_code'] = 1;
+			echo json_encode($ret);
+			die();
 		}
 	}
-	
 	echo json_encode($ret);	
 ?>

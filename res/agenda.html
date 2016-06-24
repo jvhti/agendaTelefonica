@@ -46,7 +46,7 @@ $.getJSON({
 function details(i){selectedID = i;openButDontActive("res/details.html?id="+i);}
 function edit(i){
 	selectedID = i;
-	loadContent("res/cadastrarContato.php?id="+i);
+	loadContent("res/cadastrarContato.php?id="+i, "editar:"+i);
 }
 
 var eraseID = -1;

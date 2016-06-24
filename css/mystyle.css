@@ -33,6 +33,19 @@
     background-color: rgba(0,0,0,0.5);
 }
 
+.image-cancel-overlay{
+    position: absolute;
+    top: 20px;
+    left: auto;
+    right: 20px;
+}
+
+.image-cancel-overlay .btn{
+    background-color: transparent;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px black;
+}
 
 .mainContainer{
     margin-top:65px;
@@ -102,4 +115,17 @@
 
 .brandImg{
     width:25px;
+}
+
+.loading{
+    position:fixed;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%,-50%);
+    opacity: 0;
+}
+
+.loading> img{
+    width: 100px;
+    height: auto;
 }

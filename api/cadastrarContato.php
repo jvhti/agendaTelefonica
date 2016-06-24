@@ -44,10 +44,8 @@
 		}
 		
 		$r = mysql_fetch_array($r);
-		if( isset( $_FILES[ 'foto' ][ 'name' ] ) && $_FILES[ 'foto' ][ 'error' ] == 0 ){
-			unlink($_SERVER['DOCUMENT_ROOT'].$profile_path.$r['photo']);
-		}else{
-			$photo = $r['photo'];
+		if( !isset( $_FILES[ 'foto' ][ 'name' ] ) || $_FILES[ 'foto' ][ 'error' ] != 0 ){
+			$photo = $r['photo' ];
 		}
 	}else if($func == "updateContact" && $id == -1){
 		$ret['return_code'] = 3;	

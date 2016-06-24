@@ -39,12 +39,12 @@
 
       <nav class="collapse navbar-collapse" id="navbarAgenda">
         <ul class="nav navbar-nav">
-          <li class="openContent"><a id="homeLI" default='true' href="res/welcome.html">Inicio <span class="sr-only">(current)</span></a></li>
-          <li class="openContent"><a id="agendaLI"  default='false' href="res/agenda.html">Agenda</a></li>
+          <li class="openContent"><a id="homeLI"  data-tab-default="true" data-tab-link="true" default='true' href="res/welcome.html">Inicio <span class="sr-only">(current)</span></a></li>
+          <li class="openContent"><a id="agendaLI" data-tab-link="true" default='false' href="res/agenda.html">Agenda</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extra <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li class="openContent"><a id="cadLI" href="res/cadastrarContato.php">Adicionar Contato</a></li>
+              <li class="openContent"><a id="cadLI" data-tab-link="true" href="res/cadastrarContato.php">Adicionar Contato</a></li>
               <li role="separator" class="divider"></li>
               <li><a href="#" onclick="sair();">Sair</a></li>
             </ul>
@@ -69,8 +69,14 @@
   <!-- -------------- NavBar -------------- -->
   
   <!-- --------------- Main --------------- -->
-  <main class="container-fluid" id="content">
+  <main class="container-fluid">
+    <div id="content"></div>
+        
+    <div class="loading">
+      <img src="img/Loading_icon.gif">
+    </div>
   </main>
+  
   <!-- --------------- Main --------------- -->
 
   <noscript>

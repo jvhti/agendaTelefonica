@@ -3,7 +3,7 @@
 if (typeof jQuery === 'undefined') {
     throw new Error('Main requer jQuery');
 }
-
+/*
 var loadedPage = "";
 var loadedPageItem = null;
 
@@ -45,5 +45,48 @@ $( document ).ready(function() {
             }
         });
     });
-});
+});*/
 
+/*global $*/
+function loadContent(curl, newhash){
+    if(newhash != undefined)
+        document.location.hash = newhash;
+    $(".loading").fadeTo(400, 0.5);
+    $.ajax({
+        url: curl,
+        cache: false,
+        complete: function(t){
+            $(".loading").fadeTo(400, 0);
+            $('#content').html(t.responseText);
+        }
+    });
+}
+    
+$(document).ready(function(){
+    $("a[data-tab-link='true']").each(function(){
+        if($(this).attr("data-tab-link") != "true")
+            return;
+         $(this).on('click', function(e){
+            e.preventDefault();
+            document.location.hash = $(this).attr("id");
+             updateLocation();
+         });
+    });
+    
+    
+    function updateLocation(){
+        var url = $(document.location.hash).attr("href");    
+        if(url != undefined)    
+            loadContent(url);
+        else{
+            if(document.location.hash.search("edit")){
+                var id = document.location.hash.slice(document.location.hash.indexOf(':')+1);
+                loadContent("res/cadastrarContato.php?id="+id);
+            }
+        }
+    }
+    
+    if(document.location.hash == "")
+        document.location.hash = $('a[data-tab-link="true"][data-tab-default="true"]').attr('id');
+    updateLocation();
+});

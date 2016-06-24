@@ -57,6 +57,9 @@
                     <div class="image-overlay">
                       Procurar
                     </div>
+                    <div class="image-cancel-overlay">
+                      <a onclick="removerImg();" class="btn">x</a>
+                    </div>
                   </div>
                   <input type="file" name="foto" accept="image/*" style="display:none"/>
                 </label>
@@ -104,7 +107,7 @@
               </span>
               <input name="nphone" type="text" class="form-control phoneInput" id="nphone" data-id="<?php echo ($id != -1) ? $lastNumber['id'] : ""; ?>" mask="" value="<?php echo ($id != -1) ? $lastNumber['phoneNumber'] : ""; ?>"/>
               <span class="input-group-btn">
-                <a href="#" class="btn btn-default" onclick="addInput($('#nphone'), $('#phoneList'), $(this));">+</a>
+                <a href="" class="btn btn-default" onclick="addInput($('#nphone'), $('#phoneList'), $(this), event);">+</a>
               </span>
             </div>
           </div>
@@ -184,7 +187,8 @@ if($id != -1){
 }
 ?>
 
-function addInput(input, list, btn){
+function addInput(input, list, btn, ev){
+   ev.preventDefault()
   if(input.val() == "") {alert("Para adicionar uma novo campo, primeiro você precisa digitar algo.");return;}
   if(list.attr('count') == null)
     list.attr('count', 0);
@@ -227,10 +231,10 @@ function popularEstados(){
 		  $("#estado").html("<option disabled selected>Selecione um Estado</option>");
 	    x.forEach(function(y){
 	      var t = $("#estado").append("<option value='"+y['sigla']+"'"+(editar && state != "" && state == y['nome'] ? "selected" : "")+">"+y['nome']+"</option>");
-	      if(state == y['sigla'])
+	      if(editar  && state != "" && state == y['sigla'])
 	        $("#estado").val(y['sigla']);
 	    });
-	    if(editar) popularCidades();
+	    if(editar && state != "") popularCidades();
 	  }
   });
 }
@@ -250,6 +254,12 @@ function popularCidades(){
 	  }
   });
 }
+
+function removerImg(){
+  $("#imagePreview").attr("src", "imagens/no-avatar.jpg");
+  $("input[type='file']").val("");
+}
+
 $("#estado").change(function(){popularCidades();});
 popularEstados();
 </script>
