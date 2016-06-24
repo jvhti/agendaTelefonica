@@ -1,9 +1,9 @@
 # Agenda Telefônica
 
-Projeto criado para a disciplina de Linguagem de Programação II, no curso de Informática do Instituto Federal Goiano - Câmpus Ceres.
+Projeto criado para a disciplina de Linguagem de Programação II, no curso de Informática do Instituto Federal Goiano - Câmpus Ceres.        
 
-Integrantes:
+Integrantes:                  
 	João Víctor de Oliveira Santos
 	Matheus Henrique
-	Marcos Wahib Dib
-	Lúcio Américo
+	Marcos Wahib Dib        
+	Lúcio Américo           
