@@ -81,6 +81,7 @@ function cadastrarNumerosContato(id){
     numeros.push({id:$("#nphone").data("id"), phone:$("#nphone").val()});
   }
   $("#phoneList > .form-group > .input-group > input").each(function(){
+    console.log($(this).data("id"));
     if($(this).val() != "")
       numeros.push({id:$(this).data("id"), phone:$(this).val()});
   });

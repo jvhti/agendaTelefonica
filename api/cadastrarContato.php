@@ -25,6 +25,9 @@
 	$foto = $_FILES['foto']['name'];
 	
 	$id = isset($_POST['id']) ? $_POST['id'] : -1;
+	$ret['id'] = $id;
+	$ret['photo'] = $foto;
+	$ret['fun'] = $func;
 	if($func == "updateContact" && $id != -1){
 		$sql = "SELECT photo FROM Contact where id = $id and User_email = '$user_email';";
 		$r = mysql_query($sql);
@@ -44,8 +47,10 @@
 		}
 		
 		$r = mysql_fetch_array($r);
+		
+		$ret['foto-orig'] = $r['foto'];
 		if( !isset( $_FILES[ 'foto' ][ 'name' ] ) || $_FILES[ 'foto' ][ 'error' ] != 0 ){
-			$photo = $r['photo' ];
+			$foto = $r['photo' ];
 		}
 	}else if($func == "updateContact" && $id == -1){
 		$ret['return_code'] = 3;	
@@ -80,10 +85,15 @@
 	    }
 	}
 	
+		$ret['foto-fim'] = $foto;
+	if($foto == ""){
+		$foto = "no-avatar.jpg";
+	}
+	
 	if($func == "saveContact"){
 		$sql="insert into Contact(name, lastName, email, photo, city, state, address, neighborhood, notes, User_email) value('$nome', '$sobrenome', '$email', '$foto', '$cidade', '$estado', '$endereco', '$bairro', '$notas', '$user_email');";
 	}else if($func == "updateContact"){
-		$sql = "update Contact set name = '$nome', lastName = '$sobrenome', email = '$email', photo = '$foto', city = '$cidade', state = '$estado', address = '$endereco', neighborhood= '$bairro', notes = '$notas' where id = $id";
+		$sql = "update Contact set name = '$nome', lastName = '$sobrenome', email = '$email', city = '$cidade', state = '$estado', address = '$endereco', neighborhood= '$bairro', notes = '$notas', photo = '$foto' where id = $id";
 	}
 	if (mysql_query($sql)){
 		$ret['return_code'] = 0;

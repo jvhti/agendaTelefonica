@@ -32,7 +32,7 @@
 
 	$ret['editar'] = $editar;
 	foreach ($numeros as $numero) {
-		if($editar && $numvero['id'] != "")
+		if($editar && $numero['id'] != "-1")
 			$sql="update phone set phoneNumber = '".$numero['phone']."' where Contact_id = $id and id = ".$numero['id'].";";
 		else
 			$sql="insert into phone(phoneNumber, Contact_id) value('".$numero['phone']."', $id);";

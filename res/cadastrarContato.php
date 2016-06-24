@@ -91,12 +91,14 @@
     if(!$result)
       die("MySQL error");
     $nr = mysql_num_rows($result);
-    while($r = mysql_fetch_array($result)){
-      if($numberCount < $nr - 1)
-        echo '<div class="form-group"><div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span><input type="text" name="phone_'.$numberCount.'" class="form-control phoneInput" value="'.$r['phoneNumber'].'" data-id="'.$r['id'].'" id="phone_'.$numberCount.'"/></div></div>';
-      else
-        $lastNumber = $r;
-      ++$numberCount;
+      if($nr > 0){
+      while($r = mysql_fetch_array($result)){
+        if($numberCount < $nr - 1)
+          echo '<div class="form-group"><div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span><input type="text" name="phone_'.$numberCount.'" class="form-control phoneInput" value="'.$r['phoneNumber'].'" data-id="'.$r['id'].'" id="phone_'.$numberCount.'"/></div></div>';
+        else
+          $lastNumber = $r;
+        ++$numberCount;
+      }
     }
   }
               ?>
@@ -105,7 +107,7 @@
               <span class="input-group-addon">
                 <span class="glyphicon glyphicon-earphone"></span>
               </span>
-              <input name="nphone" type="text" class="form-control phoneInput" id="nphone" data-id="<?php echo ($id != -1) ? $lastNumber['id'] : ""; ?>" mask="" value="<?php echo ($id != -1) ? $lastNumber['phoneNumber'] : ""; ?>"/>
+              <input name="nphone" type="text" class="form-control phoneInput" id="nphone" data-id="<?php echo ($nr > 0) ? $lastNumber['id'] : '-1'; ?>" mask="" value="<?php echo ($nr > 0) ? $lastNumber['phoneNumber'] : ""; ?>"/>
               <span class="input-group-btn">
                 <a href="" class="btn btn-default" onclick="addInput($('#nphone'), $('#phoneList'), $(this), event);">+</a>
               </span>
@@ -198,7 +200,7 @@ function addInput(input, list, btn, ev){
     alert("Você atingiu o número maximo de telefones para um mesmo contato.");
     return;
   }
-  list.append('<div class="form-group"><div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span><input type="text" name="phone_'+list.attr('count')+'" class="form-control phoneInput" id="phone_'+list.attr('count')+'"/></div></div>');
+  list.append('<div class="form-group"><div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span><input type="text" name="phone_'+list.attr('count')+'" data-id="-1" class="form-control phoneInput" id="phone_'+list.attr('count')+'"/></div></div>');
   $('#phone_'+list.attr('count')).val(input.val());
   input.val("");
   input.focus();
