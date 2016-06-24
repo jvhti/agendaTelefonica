@@ -44,9 +44,9 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extra <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li class="openContent"><a id="cadLI" data-tab-link="true" href="res/cadastrarContato.php">Adicionar Contato</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#" onclick="sair();">Sair</a></li>
+              <li class="openContent"><a  style="color:black" id="cadLI" data-tab-link="true" href="res/cadastrarContato.php">Adicionar Contato</a></li>
+              <li role="separator" style="color:black" class="divider"></li>
+              <li><a style="color:black" href="#" onclick="sair();">Sair</a></li>
             </ul>
           </li>
         </ul>
@@ -67,7 +67,7 @@
     </div><!-- /.container-fluid -->
   </nav>
   <!-- -------------- NavBar -------------- -->
-  
+  <div class="navbar-divider"></div>
   <!-- --------------- Main --------------- -->
   <main class="container-fluid">
     <div id="content"></div>

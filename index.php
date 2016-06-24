@@ -29,12 +29,12 @@
   		<div class="container mainContainer">
   			<div class="row">
   				<div class="col-md-12">
-  					<h1 class="page-header">CellBook</h1>
+  					<h1 class="page-header">Agenda</h1>
   				</div>
   			</div>
   			<div class="row">
   				<div class="col-md-11 col-md-offset-1">
-  					<h2 class="sub-page-header">Come to our side of the force. Here you can add all cell phone numbers, from all your friends...</h2>
+  					<h2 class="sub-page-header">Uma agenda mais dinâmica e amigável para você e sua família usarem durante o dia a dia. :)</h2>
   				</div>
   			</div>
   			<div class="row buttons-container">
